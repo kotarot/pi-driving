@@ -1,0 +1,30 @@
+<html>
+    <head>
+
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script>
+var alpha;
+var beta;
+var gamma;
+window.addEventListener('deviceorientation', function(event) {
+    alpha = event.alpha;
+    beta = event.beta;
+    gamma = event.gamma;
+    $('#alpha').text(alpha);
+    $('#beta').text(beta);
+    $('#gamma').text(gamma);
+}, false);
+setInterval(function() {
+    $.ajax({
+        url: 'http://192.168.70.103:8000/' + alpha + '/' + beta + '/' + gamma
+    });
+}, 500);
+</script>
+
+    </head>
+    <body>
+        alpha=<span id="alpha"></span><br>
+        beta=<span id="beta"></span><br>
+        gamma=<span id="gamma"></span><br>
+    </body>
+</html>
