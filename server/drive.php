@@ -1,11 +1,17 @@
 <?php
 $id = isset($_GET['id']) ? $_GET['id'] : '';
+$interval = isset($_GET['interval']) ? $_GET['interval'] : '500';
 
 $error = '';
 
 // id のバリデーション
 if (!preg_match('/^[a-zA-Z0-9_]{1,15}$/', $id)) {
     $error = 'id が不正です。';
+}
+
+// interval のバリデーション
+if (!preg_match('/^[0-9]{1,6}$/', $interval)) {
+    $error = 'interval が不正です。';
 }
 
 // ヘッダ送信
@@ -35,12 +41,12 @@ window.addEventListener('deviceorientation', function(event) {
     $('#beta').text(beta);
     $('#gamma').text(gamma);
 }, false);
-// 500 ms (= 0.5 sec) ごとにサーバに送り返す
+// 指定時間 (デフォルトは 500 ms) ごとにサーバに送り返す
 setInterval(function() {
     $.ajax({
         url: './save?id=<?php echo $id; ?>&alpha=' + alpha + '&beta=' + beta + '&gamma=' + gamma
     });
-}, 500);
+}, <?php echo $interval; ?>);
 </script>
 
     </head>
