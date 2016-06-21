@@ -6,9 +6,23 @@ import multiprocessing
 import time
 import threading
 import urllib2
+import RPi.GPIO as GPIO
 
 ID = 'pi' # <- チームのIDを入れる
 URL = 'http://www.togawa.cs.waseda.ac.jp/~kotaro.terada/pi/data/' + ID + '.json'
+
+PIN1 = 11
+PIN2 = 13
+PIN3 = 19
+PIN4 = 21
+
+GPIO.setmode(GPIO.BOARD)
+# right
+GPIO.setup(PIN1, GPIO.OUT)
+GPIO.setup(PIN2, GPIO.OUT)
+# left
+GPIO.setup(PIN3, GPIO.OUT)
+GPIO.setup(PIN4, GPIO.OUT)
 
 Go=0
 Back=0
