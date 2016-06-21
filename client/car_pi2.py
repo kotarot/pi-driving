@@ -36,41 +36,67 @@ def worker(input):
 
     # 以下てきとうな処理
     if input['beta'] < -30:
+        print "Left"
         GPIO.output(PIN2, False)
-        GPIO.output(PIN1, False)
         GPIO.output(PIN4, False)
         GPIO.output(PIN3, True)
-        print "Left"
+        while True:
+            GPIO.output(PIN1, True)
+            time.sleep(0.4)
+            GPIO.output(PIN1, False)
+            time.sleep((-1*input['beta']-30)/100)
+            data2 = {}
+            fetch(data2)
+            input2 = data2[0]
+            if input2['beta'] > -30:
+                break;
+        
     elif input['beta'] > 30:
+        print "Right"
         GPIO.output(PIN2,False)
         GPIO.output(PIN1,True)
         GPIO.output(PIN4,False)
-        GPIO.output(PIN3,False)
+        while True:
+            GPIO.output(PIN3, True)
+            time.sleep(0.4)
+            GPIO.output(PIN3, False)
+            time.sleep((input['beta']-30)/100)
+            data2 = {}
+            fetch(data2)
+            input2 = data2[0]
+            if input2['beta'] < 30:
+                break;
         
-        print "Right"
+        
     else:
-        if input ['gamma'] >30:     
+        if input ['gamma'] >30:
+            print "Go"
             GPIO.output(PIN2, False)
             GPIO.output(PIN1, True)
             GPIO.output(PIN4, False)
             GPIO.output(PIN3, True)
             
-            print "Go"
-        elif input ['gamma'] <-30:     
+            
+        elif input ['gamma'] <-30:
+            print "Back"
             GPIO.output(PIN2, True)
             GPIO.output(PIN1, False)
             GPIO.output(PIN4, True)
             GPIO.output(PIN3, False)
 
-            print"Back"
-        else:     
+           
+        else:
+            print"Stop"
             GPIO.output(PIN2, False)
             GPIO.output(PIN1, False)
             GPIO.output(PIN4, False)
             GPIO.output(PIN3, False)
 
-            print"Stop"
-    # 早過ぎたら適当にスリープする
+            
+            
+    #
+
+
     time.sleep(0.1)
 
 # スマートフォンの傾きを研究室サーバから取得する処理
@@ -94,3 +120,4 @@ if __name__ == '__main__':
         for th in thlist:
             th.join()
         data = new_data
+
