@@ -1,6 +1,5 @@
 # Pi Driving
 
-
 ## 操作方法
 
 スマートフォンで `http://www.togawa.cs.waseda.ac.jp/~kotaro.terada/pi/drive?id=****` にアクセスする。
@@ -14,4 +13,5 @@
 
 ## Note
 
+制作した回路まとめ：[circuits.pptx](circuits.pptx)
 [https://github.com/kotarot/pi-driving/wiki](https://github.com/kotarot/pi-driving/wiki)
