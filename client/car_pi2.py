@@ -35,7 +35,7 @@ def worker(input):
     print input['alpha'], input['beta'], input['gamma']
 
     # 以下てきとうな処理
-    if input['beta'] < -30:
+    if input['beta'] > 30:
         print "Left"
         GPIO.output(PIN2, False)
         GPIO.output(PIN4, False)
@@ -44,14 +44,14 @@ def worker(input):
             GPIO.output(PIN1, True)
             time.sleep(0.4)
             GPIO.output(PIN1, False)
-            time.sleep((-1*input['beta']-30)/100)
+            time.sleep((input['beta']-30)/100)
             data2 = {}
             fetch(data2)
             input2 = data2[0]
             if input2['beta'] > -30:
                 break;
         
-    elif input['beta'] > 30:
+    elif input['beta'] < -30:
         print "Right"
         GPIO.output(PIN2,False)
         GPIO.output(PIN1,True)
@@ -60,7 +60,7 @@ def worker(input):
             GPIO.output(PIN3, True)
             time.sleep(0.4)
             GPIO.output(PIN3, False)
-            time.sleep((input['beta']-30)/100)
+            time.sleep((-1*input['beta']-30)/100)
             data2 = {}
             fetch(data2)
             input2 = data2[0]
